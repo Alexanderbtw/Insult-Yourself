@@ -51,6 +51,7 @@ public class InventoryController : MonoBehaviour
         {
             panel.SetActive(!panel.activeInHierarchy);
             weaponHolder.SetActive(!weaponHolder.activeInHierarchy);
+            CursorManager.Instance.SetActiveCursorType(CursorManager.CursorType.Default);
         }
         
         if (panel.activeInHierarchy == false) { return; }
