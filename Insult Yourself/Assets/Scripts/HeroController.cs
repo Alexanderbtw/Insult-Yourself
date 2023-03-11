@@ -9,7 +9,6 @@ public class HeroController : MonoBehaviour
     public Transform particlePoint;
     bool isLeftLeg;
 
-    [HideInInspector]
     public GameObject Gun;
 
     public GameObject ParTrigger;
@@ -51,7 +50,7 @@ public class HeroController : MonoBehaviour
             Gun.SetActive(true);
             dashCooldown = startDashCooldown;
             canDash = false;
-            spotlight.enabled = true;
+            //spotlight.enabled = true;
         }
         else
         {
@@ -100,7 +99,7 @@ public class HeroController : MonoBehaviour
             isDashing = true;
             FindObjectOfType<AudioManager>().Play("Dash");
             Gun.SetActive(false);
-            spotlight.enabled = false;
+            //spotlight.enabled = false;
             dashMovement = movement.normalized;
             dashingTime = startDashingTime;
             dashCooldownController.Cooldown(startDashingTime - dashingTime);

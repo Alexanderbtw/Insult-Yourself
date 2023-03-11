@@ -147818,8 +147818,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5355251961034844031, guid: fc77a4ccf1d454d408f4458bc1160f41, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5355251961456484169, guid: fc77a4ccf1d454d408f4458bc1160f41, type: 3}
+      propertyPath: Gun
+      value: 
+      objectReference: {fileID: 980138050}
     - target: {fileID: 5355251961456484169, guid: fc77a4ccf1d454d408f4458bc1160f41, type: 3}
       propertyPath: dashCooldownController
       value: 
