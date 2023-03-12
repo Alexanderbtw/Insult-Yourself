@@ -1,7 +1,7 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
-using UnityEngine.Rendering.Universal;
 
 public class HeroController : MonoBehaviour
 {
@@ -12,7 +12,6 @@ public class HeroController : MonoBehaviour
     public GameObject Gun;
 
     public GameObject ParTrigger;
-    public Light2D spotlight;
 
     public float speed;
     public float dashSpeed;
@@ -29,12 +28,14 @@ public class HeroController : MonoBehaviour
     public float startDashCooldown;
     private float dashCooldown;
     private bool canDash = true;
+    private GameObject spotlight_controller;
 
     public DashCooldownController dashCooldownController;
 
-    private void Start()
+    private void Awake()
     {
         dashCooldownController.SetCDTime(startDashCooldown);
+        spotlight_controller = GetComponentInChildren<SpotlightController>().gameObject;
     }
 
     private void Update()
@@ -48,13 +49,14 @@ public class HeroController : MonoBehaviour
         {
             isDashing = false;
             Gun.SetActive(true);
+            spotlight_controller.SetActive(true);
             dashCooldown = startDashCooldown;
             canDash = false;
-            //spotlight.enabled = true;
         }
         else
         {
             dashingTime -= Time.deltaTime;
+            spotlight_controller.SetActive(false);
             rb.MovePosition(rb.position + dashMovement * dashSpeed * Time.fixedDeltaTime);
         }
     }
@@ -99,7 +101,6 @@ public class HeroController : MonoBehaviour
             isDashing = true;
             FindObjectOfType<AudioManager>().Play("Dash");
             Gun.SetActive(false);
-            //spotlight.enabled = false;
             dashMovement = movement.normalized;
             dashingTime = startDashingTime;
             dashCooldownController.Cooldown(startDashingTime - dashingTime);

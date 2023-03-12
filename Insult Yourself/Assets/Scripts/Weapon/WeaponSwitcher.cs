@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 
 public class WeaponSwitcher : MonoBehaviour
 {
@@ -54,7 +55,6 @@ public class WeaponSwitcher : MonoBehaviour
 
     public void SpawnWeapon(GameObject weaponItem, int slot)
     {
-        
         Instantiate(weaponItem.gameObject, transform).transform.SetSiblingIndex(slot);
     }
 
