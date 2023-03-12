@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.WSA;
 
 public class GunController : MonoBehaviour
 {
@@ -17,6 +19,7 @@ public class GunController : MonoBehaviour
     public float offset;
 
     public int ammo;
+    public float spread;
     private int currentAmmo;
     public float reloadTime;
     private bool isReloading = false;
@@ -24,7 +27,9 @@ public class GunController : MonoBehaviour
     public string reloadStartSoundName;
     public string reloadEndSoundName;
 
-    //public GameObject fireParticle;
+
+    private float rotZ;
+
     public ParticleSystem fireParticle;
     private Animator camAnim;
 
@@ -49,7 +54,7 @@ public class GunController : MonoBehaviour
     void Update()
     {
         Vector3 difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-        float rotZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
+        rotZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, 0f, rotZ + offset);
 
         Vector3 LocalScale = transform.localScale;
@@ -108,13 +113,20 @@ public class GunController : MonoBehaviour
             if (Input.GetMouseButton(0))
             {
                 currentAmmo--;
+
                 shotRageRange.SetActive(true);
+
                 CursorManager.Instance.SetActiveCursorType(ShootCursorType);
+
                 camAnim.SetTrigger("Shake");
+
                 FindObjectOfType<AudioManager>().Play(shootSoundName);
+
+                transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, rotZ + Random.Range(-spread, spread));
                 Instantiate(bullet, shotPoint.position, transform.rotation);
-                //Instantiate(fireParticle, shotPoint.position, transform.rotation);
+
                 fireParticle.Play();
+
                 timeBtwShots = startTimeBtwShots;
             }
         }

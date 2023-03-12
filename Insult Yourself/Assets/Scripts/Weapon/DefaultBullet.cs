@@ -5,7 +5,6 @@ using UnityEngine;
 public class DefaultBullet : MonoBehaviour
 {
     public float speed;
-    public float lifetime;
     public float distance;
     public int damage;
     public LayerMask whatIsSolid;
@@ -22,10 +21,5 @@ public class DefaultBullet : MonoBehaviour
             Destroy(gameObject);
         }
         transform.Translate(Vector2.right * speed * Time.deltaTime);
-        lifetime -= Time.deltaTime;
-        if (lifetime <= 0)
-        {
-            Destroy(gameObject);
-        }
     }
 }

@@ -34,13 +34,13 @@ public class InventoryController : MonoBehaviour
 
     InventoryHighlight inventoryHighlight;
 
-    private SpotlightController spotlight_controller;
+    private GameObject spotlight_controller;
 
     private void Awake()
     {
         inventoryHighlight = GetComponent<InventoryHighlight>();
         selectedItemGrid = defaultGrid;
-        spotlight_controller = FindObjectOfType<SpotlightController>();
+        spotlight_controller = FindObjectOfType<SpotlightController>().gameObject;
     }
 
     private void Start()
@@ -56,7 +56,7 @@ public class InventoryController : MonoBehaviour
             panel.SetActive(!panel.activeInHierarchy);
             weaponHolder.SetActive(!weaponHolder.activeInHierarchy);
             CursorManager.Instance.SetActiveCursorType(CursorManager.CursorType.Default);
-            spotlight_controller.enabled = !spotlight_controller.isActiveAndEnabled;
+            spotlight_controller.SetActive(!spotlight_controller.activeInHierarchy);
         }
         
         if (panel.activeInHierarchy == false) { return; }
@@ -104,11 +104,11 @@ public class InventoryController : MonoBehaviour
 
     private void InsertItem(InventoryItem itemToInsert)
     {
-        Vector2Int? posOnGrid = defaultGrid.FindSpaceForObject(itemToInsert);
+        Vector2Int? posOnGrid = selectedItemGrid.FindSpaceForObject(itemToInsert);
 
         if (posOnGrid == null) { return; }
 
-        defaultGrid.PlaceItem(itemToInsert, posOnGrid.Value.x, posOnGrid.Value.y);
+        selectedItemGrid.PlaceItem(itemToInsert, posOnGrid.Value.x, posOnGrid.Value.y);
     }
 
     Vector2Int oldPosition;

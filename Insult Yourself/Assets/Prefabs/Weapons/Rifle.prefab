@@ -108,6 +108,7 @@ MonoBehaviour:
   startTimeBtwShots: 0.1
   offset: 0
   ammo: 30
+  spread: 20
   reloadTime: 5
   shootSoundName: AK-47Shoot
   reloadStartSoundName: AK-47ReloadStart
